@@ -8,14 +8,14 @@ from launch_ros.substitutions import FindPackageShare
  
 def generate_launch_description():
  
-    # Define filenames    
+    # Define filenames
     urdf_package = 'mycobot_description'
-    urdf_filename = 'mycobot_280_urdf.xacro'
+    urdf_filename = 'mycobot_280.urdf.xacro'
     rviz_config_filename = 'mycobot_280_arduino_view_description.rviz'
  
     # Set paths to important files
     pkg_share_description = FindPackageShare(urdf_package)
-    default_urdf_model_path = PathJoinSubstitution([pkg_share_description, 'urdf', urdf_filename])
+    default_urdf_model_path = PathJoinSubstitution([pkg_share_description, 'urdf', 'robots', urdf_filename])
     default_rviz_config_path = PathJoinSubstitution([pkg_share_description, 'rviz', rviz_config_filename])
  
     # Launch configuration variables specific to simulation

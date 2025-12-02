@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Arm_Assembly_URDF.SLDASM">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.00079815 0.0029373 -1.9921E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.3171" />
+      <inertia
+        ixx="0.0002369"
+        ixy="2.2819E-07"
+        ixz="-1.3738E-07"
+        iyy="0.0003143"
+        iyz="-1.8676E-07"
+        izz="0.00023727" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79608 0.82353 0.93725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Link_0">
+    <inertial>
+      <origin
+        xyz="0.0396836517172742 0.028044773020265 -3.82136170766012E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.332337507569089" />
+      <inertia
+        ixx="0.00056310492412858"
+        ixy="-0.000127137119030391"
+        ixz="-1.36690522654469E-09"
+        iyy="0.00045356754918059"
+        iyz="-4.10987974592266E-10"
+        izz="0.000498509885756028" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.866666666666667 0.909803921568627 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Amanda"
+    type="continuous">
+    <origin
+      xyz="-0.00082643 0 0.03375"
+      rpy="1.5708 0 1.5625" />
+    <parent
+      link="base_link" />
+    <child
+      link="Link_0" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.7925"
+      upper="3.1416"
+      effort="50"
+      velocity="0" />
+  </joint>
+  <link
+    name="Link_1">
+    <inertial>
+      <origin
+        xyz="-0.163681937832527 1.03264585993301E-06 -0.00531311701789006"
+        rpy="0 0 0" />
+      <mass
+        value="1.29151589344042" />
+      <inertia
+        ixx="0.00152376236683335"
+        ixy="2.48106625101311E-08"
+        ixz="6.25960674686593E-06"
+        iyy="0.00239011551546957"
+        iyz="1.16628092452105E-08"
+        izz="0.00232382943998219" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Sosuke"
+    type="revolute">
+    <origin
+      xyz="0 0.063 0"
+      rpy="1.5708 -1.5689 -1.5708" />
+    <parent
+      link="Link_0" />
+    <child
+      link="Link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5708"
+      upper="3.1416"
+      effort="100"
+      velocity="0" />
+  </joint>
+  <link
+    name="Link_2">
+    <inertial>
+      <origin
+        xyz="-0.0413455097315701 0.0848736303439487 -0.0162070623410888"
+        rpy="0 0 0" />
+      <mass
+        value="0.400208775561566" />
+      <inertia
+        ixx="0.000516359960182605"
+        ixy="8.10737105875724E-05"
+        ixz="4.08608177211858E-06"
+        iyy="0.000311603180405403"
+        iyz="-9.93705525806462E-06"
+        izz="0.000596556815986802" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Nathan"
+    type="revolute">
+    <origin
+      xyz="-0.396 0 0"
+      rpy="-0.026701 0.01367 0.10983" />
+    <parent
+      link="Link_1" />
+    <child
+      link="Link_2" />
+    <axis
+      xyz="0.013669 0.026695 -0.99955" />
+    <limit
+      lower="-2.4784"
+      upper="2.4784"
+      effort="60"
+      velocity="0" />
+  </joint>
+  <link
+    name="Link_3">
+    <inertial>
+      <origin
+        xyz="-0.266601889894523 0.0289010323616966 -0.000451481428345494"
+        rpy="0 0 0" />
+      <mass
+        value="0.455178296555825" />
+      <inertia
+        ixx="0.000259297016882087"
+        ixy="3.84297214360603E-05"
+        ixz="5.06157955868465E-07"
+        iyy="0.00060557830009397"
+        iyz="-1.07704221118898E-07"
+        izz="0.000608994304605117" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Henry"
+    type="revolute">
+    <origin
+      xyz="-0.079846 0.10435 0.00019439"
+      rpy="0.047996 -0.015976 -0.00026869" />
+    <parent
+      link="Link_2" />
+    <child
+      link="Link_3" />
+    <axis
+      xyz="0.99418 -0.10776 0" />
+    <limit
+      lower="-6.2832"
+      upper="6.2832"
+      effort="20"
+      velocity="0" />
+  </joint>
+  <link
+    name="Link_4">
+    <inertial>
+      <origin
+        xyz="-0.0284700798374056 -0.0361453242959057 -0.0217343050502947"
+        rpy="0 0 0" />
+      <mass
+        value="0.0974874985094937" />
+      <inertia
+        ixx="3.42006432725955E-05"
+        ixy="-7.84532479587995E-06"
+        ixz="-1.58670134888144E-06"
+        iyy="4.53146096280742E-05"
+        iyz="-1.3891169158584E-06"
+        izz="6.3441057595053E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.796078431372549 0.823529411764706 0.937254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Arm_Assembly_URDF.SLDASM/meshes/Link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Indy"
+    type="continuous">
+    <origin
+      xyz="-0.32409 0.035127 0"
+      rpy="0 0 -0.024891" />
+    <parent
+      link="Link_3" />
+    <child
+      link="Link_4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.2832"
+      upper="6.2832"
+      effort="20"
+      velocity="0" />
+  </joint>
+</robot>

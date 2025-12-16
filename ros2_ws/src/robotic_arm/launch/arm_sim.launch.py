@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from ros_ign_gazebo_interfaces.srv import SpawnEntity
+from ros_ign_gazebo import SpawnEntity
 import os
 
 class SpawnArm(Node):

@@ -8,7 +8,7 @@ from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution, PythonExpression
 
 def generate_launch_description():
-    # Define package name
+    # Define constants
     package_name = 'robotic_arm'
     
     # Relative file paths
@@ -16,7 +16,7 @@ def generate_launch_description():
     config_file = 'config/ros_gz_bridge.yaml'
     world_file = 'worlds/empty_world.sdf'
     
-    # PART 2: Get package installation path
+    # Get package installation path
     pkg_share = FindPackageShare(package=package_name).find(package_name)
     pkg_ros_gz_sim = FindPackageShare(package='ros_gz_sim').find('ros_gz_sim')
 
@@ -82,6 +82,24 @@ def generate_launch_description():
         description='Run without GUI if true'
     )
 
+    declare_robot_name = DeclareLaunchArgument(
+        name='robot_name',
+        default_value='my_robot',
+        description='Name of the robot in Gazebo'
+    )
+
+    declare_use_sim_time = DeclareLaunchArgument(
+        name='use_sim_time',
+        default_value='True',
+        description='Use simulation clock if true'
+    )
+
+    declare_use_robot_state_pub = DeclareLaunchArgument(
+        name='use_robot_state_pub',
+        default_value='True',
+        description='Whether to start the robot state publisher'
+    )
+
     # Obtain the values
 
     x = LaunchConfiguration('x')    
@@ -93,6 +111,19 @@ def generate_launch_description():
     world = LaunchConfiguration('world')
     use_simulator = LaunchConfiguration('use_simulator')
     headless = LaunchConfiguration('headless')
+    robot_name = LaunchConfiguration('robot_name')
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
+
+    robot_state_publisher = Node(
+        condition=IfCondition(use_robot_state_pub),
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time,
+                     'robot_description': Command(['urdf', urdf_full_path])}] # I don't know if this is necessary since file is already URDF
+    )
 
     # === Start Gazebo Server === #
     start_gazebo_server = IncludeLaunchDescription(
@@ -114,32 +145,60 @@ def generate_launch_description():
         )
     )
 
+    # === TIME TO SPAWN THE DAMN ROBOT === #
+    spawn_robot = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', robot_name,
+            '-topic', '/robot_description',
+            '-x', x,
+            '-y', y,
+            '-z', z,
+            '-R', roll,
+            '-P', pitch,
+            '-Y', yaw   
+        ],
+        output='screen'
+    )
+
     # === Build the Launch Description === #
 
     ld = LaunchDescription()
 
-    # Add declarations
+    """Commenting out because logging kept giving errors"""
+    # Add info messages
+    # ld.add_action(LogInfo(msg=['='*50]))
+    # ld.add_action(LogInfo(msg=['Starting Gazebo...']))
+    # ld.add_action(LogInfo(msg=['simulator: ',use_simulator]))
+    # ld.add_action(LogInfo(msg=['x: ',x]))
+    # ld.add_action(LogInfo(msg=['headless: ',headless]))
+    # ld.add_action(LogInfo(msg=['world: ',world]))
+    # ld.add_action(LogInfo(msg=['='*50]))
+
+    # Add argument declarations
     ld.add_action(declare_use_simulator)
     ld.add_action(declare_headless)
     ld.add_action(declare_world)
-    
-    # Add info messages
-    ld.add_action(LogInfo(msg=['='*50]))
-    ld.add_action(LogInfo(msg=['Starting Gazebo...']))
-    ld.add_action(LogInfo(msg=['Simulator: ', use_simulator]))
-    ld.add_action(LogInfo(msg=['Headless: ', headless]))
-    ld.add_action(LogInfo(msg=['World: ', world]))
-    ld.add_action(LogInfo(msg=['='*50]))
+    ld.add_action(declare_robot_name)
+    ld.add_action(declare_use_sim_time)
+    ld.add_action(declare_use_robot_state_pub)
+    ld.add_action(declare_x)
+    ld.add_action(declare_y)
+    ld.add_action(declare_z)
+    ld.add_action(declare_roll)
+    ld.add_action(declare_pitch)
+    ld.add_action(declare_yaw)
     
     # Add Gazebo nodes
     ld.add_action(start_gazebo_server)
     ld.add_action(start_gazebo_client)
+    ld.add_action(robot_state_publisher)
+    ld.add_action(spawn_robot)
     
     return ld
-
-
-
-"""Commenting out logging for cleaner launch output"""
+    
+"""Commenting out logging for cleaner, more complete launch output"""
 
     # return LaunchDescription([
     #     declare_x,

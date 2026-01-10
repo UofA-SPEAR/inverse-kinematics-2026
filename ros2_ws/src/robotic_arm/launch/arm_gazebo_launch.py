@@ -134,7 +134,10 @@ def generate_launch_description():
     )
 
     # === Set Gazebo Resource Path === #
-
+    set_gz_resource_path = SetEnvironmentVariable(
+    name='GZ_SIM_RESOURCE_PATH',
+    value=os.path.join(pkg_share)
+    )
 
     # === Start Gazebo Server === #
     start_gazebo_server = IncludeLaunchDescription(

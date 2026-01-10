@@ -6,13 +6,14 @@ from launch.conditions import IfCondition
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution, PythonExpression
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
     # Define constants
     package_name = 'robotic_arm'
     
     # Relative file paths
-    urdf_file =  'urdf/arm_assembly.urdf'
+    urdf_file =  'urdf/arm_assembly.urdf.xacro'
     config_file = 'config/ros_gz_bridge.yaml'
     world_file = 'worlds/empty_world.sdf'
     
@@ -115,6 +116,11 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
 
+    robot_description_content = ParameterValue(
+        Command(['xacro ', urdf_full_path]),
+        value_type=str
+    )
+
     robot_state_publisher = Node(
         condition=IfCondition(use_robot_state_pub),
         package='robot_state_publisher',
@@ -122,7 +128,8 @@ def generate_launch_description():
         name='robot_state_publisher',
         output='screen',
         parameters=[{'use_sim_time': use_sim_time,
-                     'robot_description': Command(['urdf', urdf_full_path])}] # I don't know if this is necessary since file is already URDF
+                     'robot_description': robot_description_content
+                     }] 
     )
 
     # === Start Gazebo Server === #
@@ -151,7 +158,7 @@ def generate_launch_description():
         executable='create',
         arguments=[
             '-name', robot_name,
-            '-topic', '/robot_description',
+            '-topic', 'robot_description',
             '-x', x,
             '-y', y,
             '-z', z,

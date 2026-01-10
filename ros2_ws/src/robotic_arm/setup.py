@@ -21,6 +21,9 @@ setup(
 
         (os.path.join('share', package_name, 'config'),
          glob(os.path.join('config', '*'))),
+
+         (os.path.join('share', package_name, 'meshes'),
+         glob(os.path.join('meshes', '*'))),
         
     ],
     install_requires=['setuptools'],

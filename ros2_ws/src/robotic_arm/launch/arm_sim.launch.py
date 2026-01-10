@@ -16,7 +16,7 @@ class SpawnArm(Node):
         sdf_path = os.path.join(pkg_path, 'urdf', 'arm_assembly.sdf')
         with open(sdf_path, 'r') as f:
             sdf_model = f.read()
-        
+
         self.spawn_model(sdf_model)
 
     def spawn_model(self, sdf_model):

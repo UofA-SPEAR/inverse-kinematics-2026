@@ -7,6 +7,7 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution, PythonExpression
 from launch_ros.parameter_descriptions import ParameterValue
+from launch.actions import SetEnvironmentVariable
 
 def generate_launch_description():
     # Define constants
@@ -131,6 +132,9 @@ def generate_launch_description():
                      'robot_description': robot_description_content
                      }] 
     )
+
+    # === Set Gazebo Resource Path === #
+
 
     # === Start Gazebo Server === #
     start_gazebo_server = IncludeLaunchDescription(

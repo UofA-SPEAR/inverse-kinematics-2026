@@ -2,7 +2,9 @@
 <robot name="arm_assembly" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- ===== PROPERTIES ===== -->
-  <xacro:property name="package_name" value="robotic_arm" />
+  <xacro:property
+  name="pkg_share"
+  value="$(find robotic_arm)" />
   
   <!-- Material colors -->
   <material name="blue">
@@ -26,7 +28,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/base_link.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/base_link.STL"/>
       </geometry>
       <material name="blue"/>
     </visual>
@@ -34,7 +36,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/base_link.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/base_link.STL"/>
       </geometry>
     </collision>
   </link>
@@ -52,7 +54,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_0.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_0.STL"/>
       </geometry>
       <material name="light_blue"/>
     </visual>
@@ -60,7 +62,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_0.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_0.STL"/>
       </geometry>
     </collision>
   </link>
@@ -87,7 +89,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_1.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_1.STL"/>
       </geometry>
       <material name="blue"/>
     </visual>
@@ -95,7 +97,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_1.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_1.STL"/>
       </geometry>
     </collision>
   </link>
@@ -122,7 +124,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_2.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_2.STL"/>
       </geometry>
       <material name="blue"/>
     </visual>
@@ -130,7 +132,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_2.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_2.STL"/>
       </geometry>
     </collision>
   </link>
@@ -157,7 +159,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_3.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_3.STL"/>
       </geometry>
       <material name="blue"/>
     </visual>
@@ -165,7 +167,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_3.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_3.STL"/>
       </geometry>
     </collision>
   </link>
@@ -192,7 +194,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_4.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_4.STL"/>
       </geometry>
       <material name="blue"/>
     </visual>
@@ -200,7 +202,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://${package_name}/meshes/Link_4.STL"/>
+        <mesh filename="file://${pkg_share}/meshes/Link_4.STL"/>
       </geometry>
     </collision>
   </link>

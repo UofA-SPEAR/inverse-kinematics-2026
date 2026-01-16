@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution, PythonExpression
 from launch_ros.parameter_descriptions import ParameterValue
-from launch.actions import SetEnvironmentVariable
+from launch.actions import SetEnvironmentVariable, AppendEnvironmentVariable
 
 def generate_launch_description():
     # Define constants
@@ -17,6 +17,7 @@ def generate_launch_description():
     urdf_file =  'urdf/arm_assembly.urdf.xacro'
     config_file = 'config/ros_gz_bridge.yaml'
     world_file = 'worlds/empty_world.sdf'
+    meshes_file = 'meshes'
     
     # Get package installation path
     pkg_share = FindPackageShare(package=package_name).find(package_name)
@@ -26,6 +27,7 @@ def generate_launch_description():
     urdf_full_path = os.path.join(pkg_share, urdf_file)
     config_full_path = os.path.join(pkg_share, config_file)
     world_full_path = os.path.join(pkg_share, world_file)
+    gazebo_meshes_path = os.path.join(pkg_share, meshes_file)
     gazebo_launch_file = os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
     
     # === Position Arguments === #
@@ -134,9 +136,9 @@ def generate_launch_description():
     )
 
     # === Set Gazebo Resource Path === #
-    set_gz_resource_path = SetEnvironmentVariable(
+    set_gz_resource_path = AppendEnvironmentVariable(
     name='GZ_SIM_RESOURCE_PATH',
-    value=os.path.join(pkg_share)
+    value = gazebo_meshes_path
     )
 
     # === Start Gazebo Server === #
@@ -206,7 +208,8 @@ def generate_launch_description():
     
     # Add Gazebo nodes
     ld.add_action(start_gazebo_server)
-    ld.add_action(start_gazebo_client)
+    """Commented out to avoid GUI launch by default"""
+    # ld.add_action(start_gazebo_client) 
     ld.add_action(robot_state_publisher)
     ld.add_action(spawn_robot)
     

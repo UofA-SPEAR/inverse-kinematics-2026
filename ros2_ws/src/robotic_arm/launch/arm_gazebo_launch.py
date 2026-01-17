@@ -45,7 +45,7 @@ def generate_launch_description():
 
     declare_z = DeclareLaunchArgument(
         name = 'z',
-        default_value = '0.5',
+        default_value = '0.05',
         description = 'Z position of arm in meters'
     )
 
@@ -209,7 +209,7 @@ def generate_launch_description():
     # Add Gazebo nodes
     ld.add_action(start_gazebo_server)
     """Commented out to avoid GUI launch by default"""
-    # ld.add_action(start_gazebo_client) 
+    ld.add_action(start_gazebo_client) 
     ld.add_action(robot_state_publisher)
     ld.add_action(spawn_robot)
     

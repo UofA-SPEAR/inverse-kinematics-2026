@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="arm_assembly" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ===== PROPERTIES ===== -->
+  <xacro:property
+  name="pkg_share"
+  value="$(find robotic_arm)" />
+  
+  <!-- Material colors -->
+  <material name="blue">
+    <color rgba="0.796 0.824 0.937 1"/>
+  </material>
+  
+  <material name="light_blue">
+    <color rgba="0.867 0.910 1.0 1"/>
+  </material>
+
+  <!-- ===== BASE LINK ===== -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-0.00079815 0.0029373 -1.9921E-05" rpy="0 0 0"/>
+      <mass value="0.3171"/>
+      <inertia
+        ixx="0.0002369" ixy="2.2819E-07" ixz="-1.3738E-07"
+        iyy="0.0003143" iyz="-1.8676E-07" izz="0.00023727"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_0.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_0.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ===== LINK 0 ===== -->
+  <link name="Link_0">
+    <inertial>
+      <origin xyz="0.0396837 0.028045 -3.8214E-07" rpy="0 0 0"/>
+      <mass value="0.332338"/>
+      <inertia
+        ixx="0.00056310" ixy="-0.00012714" ixz="-1.3669E-09"
+        iyy="0.00045357" iyz="-4.1099E-10" izz="0.00049851"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_1.dae"/>
+      </geometry>
+      <material name="light_blue"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_1.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ===== JOINT: Amanda ===== -->
+  <joint name="Amanda" type="revolute">
+    <origin xyz="-0.00082643 0 0.03375" rpy="1.5708 0 1.5625"/>
+    <parent link="base_link"/>
+    <child link="Link_0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.7925" upper="3.1416" effort="50" velocity="1.0"/>
+  </joint>
+
+  <!-- ===== LINK 1 ===== -->
+  <link name="Link_1">
+    <inertial>
+      <origin xyz="-0.163682 1.0326E-06 -0.0053131" rpy="0 0 0"/>
+      <mass value="1.29152"/>
+      <inertia
+        ixx="0.0015238" ixy="2.4811E-08" ixz="6.2596E-06"
+        iyy="0.0023901" iyz="1.1663E-08" izz="0.0023238"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_2.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_2.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ===== JOINT: Sosuke ===== -->
+  <joint name="Sosuke" type="revolute">
+    <origin xyz="0 0.063 0" rpy="1.5708 -1.5689 -1.5708"/>
+    <parent link="Link_0"/>
+    <child link="Link_1"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="3.1416" effort="100" velocity="1.0"/>
+  </joint>
+
+  <!-- ===== LINK 2 ===== -->
+  <link name="Link_2">
+    <inertial>
+      <origin xyz="-0.041346 0.084874 -0.016207" rpy="0 0 0"/>
+      <mass value="0.400209"/>
+      <inertia
+        ixx="0.00051636" ixy="8.1074E-05" ixz="4.0861E-06"
+        iyy="0.00031160" iyz="-9.9371E-06" izz="0.00059656"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_3.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_3.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ===== JOINT: Nathan ===== -->
+  <joint name="Nathan" type="revolute">
+    <origin xyz="-0.396 0 0" rpy="-0.026701 0.01367 0.10983"/>
+    <parent link="Link_1"/>
+    <child link="Link_2"/>
+    <axis xyz="0.013669 0.026695 -0.99955"/>
+    <limit lower="-2.4784" upper="2.4784" effort="60" velocity="1.0"/>
+  </joint>
+
+  <!-- ===== LINK 3 ===== -->
+  <link name="Link_3">
+    <inertial>
+      <origin xyz="-0.266602 0.028901 -0.00045148" rpy="0 0 0"/>
+      <mass value="0.455178"/>
+      <inertia
+        ixx="0.00025930" ixy="3.8430E-05" ixz="5.0616E-07"
+        iyy="0.00060558" iyz="-1.0770E-07" izz="0.00060899"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_4.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_4.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ===== JOINT: Henry ===== -->
+  <joint name="Henry" type="revolute">
+    <origin xyz="-0.079846 0.10435 0.00019439" rpy="0.047996 -0.015976 -0.00026869"/>
+    <parent link="Link_2"/>
+    <child link="Link_3"/>
+    <axis xyz="0.99418 -0.10776 0"/>
+    <limit lower="-6.2832" upper="6.2832" effort="20" velocity="1.0"/>
+  </joint>
+
+  <!-- ===== LINK 4 ===== -->
+  <link name="Link_4">
+    <inertial>
+      <origin xyz="-0.028470 -0.036145 -0.021734" rpy="0 0 0"/>
+      <mass value="0.097487"/>
+      <inertia
+        ixx="3.4201E-05" ixy="-7.8453E-06" ixz="-1.5867E-06"
+        iyy="4.5315E-05" iyz="-1.3891E-06" izz="6.3441E-05"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_5.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://${pkg_share}/dae_mesh/Link_5.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ===== JOINT: Indy ===== -->
+  <joint name="Indy" type="revolute">
+    <origin xyz="-0.32409 0.035127 0" rpy="0 0 -0.024891"/>
+    <parent link="Link_3"/>
+    <child link="Link_4"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-6.2832" upper="6.2832" effort="20" velocity="1.0"/>
+  </joint>
+
+  <!-- ===== GAZEBO PLUGIN FOR PHYSICS ===== -->
+  <gazebo>
+    <plugin filename="gz-sim-joint-state-publisher-system" 
+            name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+  </gazebo>
+
+  <!-- ===== GAZEBO MATERIALS ===== -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <gazebo reference="Link_0">
+    <material>Gazebo/SkyBlue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <gazebo reference="Link_1">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <gazebo reference="Link_2">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <gazebo reference="Link_3">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <gazebo reference="Link_4">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+</robot>

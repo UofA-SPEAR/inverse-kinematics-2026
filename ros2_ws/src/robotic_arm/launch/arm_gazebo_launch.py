@@ -14,7 +14,7 @@ def generate_launch_description():
     package_name = 'robotic_arm'
     
     # Relative file paths
-    urdf_file =  'urdf/arm_assembly.urdf.xacro'
+    urdf_file =  'urdf/dummy.urdf.xacro'
     config_file = 'config/ros_gz_bridge.yaml'
     world_file = 'worlds/empty_world.sdf'
     meshes_file = 'meshes'

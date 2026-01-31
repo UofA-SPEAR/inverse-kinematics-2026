@@ -27,6 +27,9 @@ setup(
 
          (os.path.join('share', package_name, 'worlds'),
          glob(os.path.join('worlds', '*'))),
+
+         (os.path.join('share', package_name, 'dae_mesh'),
+         glob(os.path.join('dae_mesh', '*'))),
         
     ],
     install_requires=['setuptools'],

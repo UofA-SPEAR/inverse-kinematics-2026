@@ -16,7 +16,7 @@ def generate_launch_description():
     # Relative file paths
     urdf_file =  'urdf/dummy.urdf.xacro'
     config_file = 'config/ros_gz_bridge.yaml'
-    world_file = 'worlds/empty_world.sdf'
+    world_file = 'worlds/empty.world.sdf'
     meshes_file = 'meshes'
     
     # Get package installation path

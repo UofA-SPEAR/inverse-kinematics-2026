@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="kipp" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- THis file doesn't like the common_properties.xacro fle for some reason-->
+    <xacro:include filename="arm.xacro" />
+
+</robot>

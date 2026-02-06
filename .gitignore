@@ -1,5 +1,5 @@
 # ROS 2 build files
-**/build/
+**build/
 **/install/
 **/log/
 .colcon_install_cache

@@ -44,7 +44,7 @@
 
   <link name="Link_0">
     <inertial>
-      <origin xyz="0.0396837 0.028045 -3.8214E-07" rpy="0 0 0"/>
+      <origin xyz="0.0396837 0.028045 1" rpy="0 0 0"/>
       <mass value="2"/>
       <inertia
         ixx="0.00056310" ixy="-0.00012714" ixz="-1.3669E-09"

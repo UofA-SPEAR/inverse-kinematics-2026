@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot name="kipp" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- THis file doesn't like the common_properties.xacro fle for some reason-->
-    <xacro:include filename="arm.xacro" />
+    <!-- Material colors 
+    <material name="blue">
+        <color rgba="0.796 0.824 0.937 1"/>
+    </material>
+    
+    <material name="light_blue">
+        <color rgba="0.867 0.910 1.0 1"/>
+    </material> -->
+
+    <!-- This file doesn't like the common_properties.xacro fle for some reason-->
+    <xacro:include filename='arm.xacro' />
+    <xacro:include filename='kipp.ros2_control.xacro'/>
 
 </robot>
+

@@ -1,6 +1,7 @@
 <launch>
     <let name="urdf_path"
         value="$(find-pkg-share arm_description)/urdf/robot.urdf.xacro"/>
+
     <let name="rviz_config_path"
         value="$(find-pkg-share arm_bringup)/config/arm_moveit.rviz"/>
 
@@ -10,14 +11,44 @@
     </node>    
 
     <node pkg="controller_manager" exec="ros2_control_node">
-        <param from="$(find-pkg-share arm_bringup)/config/ros_controllers.yaml"/>
+        <param from="$(find-pkg-share arm_bringup)/config/ros2_controllers.yaml"/>
+        <param name='robot_description' 
+        value="$(command 'xacro $(var urdf_path)')"/>
     </node>
 
     <node pkg= "controller_manager" exec= 'spawner' args="joint_state_broadcaster" />
     <node pkg= "controller_manager" exec= 'spawner' args="arm_controller" />
 
+    <!-- Subsrcibes to the game pad and publishes gamepad state-->
+    <node pkg="joy" exec="joy_node" name="joy_node"/>
+
+    <!-- Converts gamepad states and inputs to trajectory(twist) commands for moveit_servo-->
+    <node pkg="your_pkg" exec="joy_to_servo" name="joy_to_servo"/>
+
+    <!-- Servo node -->
+    <node pkg="moveit_servo" exec="servo_node_main" name="servo_node" output="screen">
+
+    <!-- Servo configuration -->
+        <param from="$(find-pkg-share robot_moveit_config)/config/servo_params.yaml"/>
+        <param name="low_pass_filter_coeff" value="2.0"/>
+
+    <!-- robot_description: load URDF via xacro -->
+        <param name="robot_description"
+           value="$(command 'xacro $(var urdf_path)')"/>
+
+    <!-- robot_description_semantic: load SRDF -->
+        <param name="robot_description_semantic"
+           value="$(find-pkg-share robot_moveit_config)/config/robot.srdf"/>
+
+    <!-- robot_description_kinematics: kinematics plugin parameters -->
+        <param from="$(find-pkg-share robot_moveit_config)/config/kinematics.yaml"/>
+
+    </node>
+
     <include file="$(find-pkg-share robot_moveit_config)/launch/move_group.launch.py" />
 
     <node pkg="rviz2" exec="rviz2" output="screen" 
           args="-d $(var rviz_config_path)" />
+
 </launch>
+

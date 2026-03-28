@@ -58,6 +58,15 @@ def generate_launch_description():
         name="joy_node",
     )
 
+    import yaml
+
+    # In generate_launch_description():
+    with open(servo_params_path, 'r') as f:
+        servo_yaml = yaml.safe_load(f)
+
+    # Extract just the ros__parameters dict, already nested under moveit_servo
+    servo_params = servo_yaml['servo_node']['ros__parameters']
+
     servo_node = Node(
         package="moveit_servo",
         executable="servo_node_main",
@@ -67,7 +76,7 @@ def generate_launch_description():
             moveit_config.robot_description,
             moveit_config.robot_description_semantic,
             moveit_config.robot_description_kinematics,
-            ParameterFile(servo_params_path, allow_substs=True),
+            servo_params,
         ],
     )
 

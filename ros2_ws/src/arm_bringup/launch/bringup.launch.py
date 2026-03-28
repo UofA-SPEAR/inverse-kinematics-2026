@@ -67,6 +67,12 @@ def generate_launch_description():
     # Extract just the ros__parameters dict, already nested under moveit_servo
     servo_params = servo_yaml['servo_node']['ros__parameters']
 
+    gamepad_node = Node(
+        package ="arm_bringup",
+        executable="gamepad_to_servo",
+        name="gamepad_to_servo"
+    )
+
     servo_node = Node(
         package="moveit_servo",
         executable="servo_node_main",

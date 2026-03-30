@@ -1,0 +1,8 @@
+# Default initial positions for kipp's ros2_control fake system
+
+initial_positions:
+  Amanda: 0
+  Henry: 0
+  Indy: 0
+  Nathan: 0
+  Sosuke: 0

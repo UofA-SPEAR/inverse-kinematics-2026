@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kipp">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import kipp urdf file -->
+    <xacro:include filename="$(find plex_arm)/urdf/robot.urdf.xacro" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="kipp.ros2_control.xacro" />
+
+
+    <xacro:kipp_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>

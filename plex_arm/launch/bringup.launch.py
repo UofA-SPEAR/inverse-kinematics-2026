@@ -7,6 +7,8 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from moveit_configs_utils import MoveItConfigsBuilder
 from ament_index_python.packages import get_package_share_directory
 from launch_ros.parameter_descriptions import ParameterFile
+from launch.actions import TimerAction
+from launch.actions import ExecuteProcess
 
 
 def generate_launch_description():
@@ -25,10 +27,6 @@ def generate_launch_description():
     with open(servo_params_path, 'r') as f:
         servo_yaml = yaml.safe_load(f)
     servo_params = servo_yaml['servo_node']['ros__parameters']
-
-
-
-
 
     robot_state_publisher = Node(
         package="robot_state_publisher",
@@ -113,6 +111,17 @@ def generate_launch_description():
         ],
     )
 
+    start_servo = TimerAction(
+        period=10.0,  # wait 10 seconds for servo_node to finish starting up
+        actions=[
+            ExecuteProcess(
+                cmd=['ros2', 'service', 'call', '/servo_node/start_servo', 
+                     'std_srvs/srv/Trigger', '{}'],
+                output='screen'
+            )
+        ]
+    )
+
     return LaunchDescription([
         robot_state_publisher,
         ros2_control_node,
@@ -123,4 +132,5 @@ def generate_launch_description():
         move_group,
         rviz_node,
         gamepad_node,
+        start_servo,
     ])

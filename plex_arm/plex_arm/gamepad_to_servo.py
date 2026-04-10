@@ -10,19 +10,22 @@ class gamepad_to_servo(Node):
         self.joy_sub = self.create_subscription(Joy, '/joy', self.joy_cb, 10)
         self.twist_pub = self.create_publisher(TwistStamped, '/servo_node/delta_twist_cmds', 10)
         self.joint_pub = self.create_publisher(JointJog, '/servo_node/delta_joint_cmds', 10)
+        self.joint_mode = True
+        self.last_button_press = None
 
     def joy_cb(self, msg):
         # Toggle mode with a button press, e.g. Y button (index 3 on Xbox)
         # Toggles between direct EE manipulation and single joint manipulation
-        if msg.buttons[3]:  # <---------------------------  May or may not be mapped to [3]. YOu should check this
+        if msg.buttons[3] and not self.last_button_press:  # <---------------------------  May or may not be mapped to [3]. YOu should check this
             self.joint_mode = not self.joint_mode
-            mode = "joint" if self.joint_mode else "cartesian"
-            self.get_logger().info(f'Switched to {mode} mode')
+            self.get_logger().info(f'Joint mode = {self.joint_mode}')
 
         if self.joint_mode:
             self.publish_joint_cmds(msg)
         else:
             self.publish_twist_cmds(msg)
+
+        self.last_button_press = msg.buttons[3]
 
 # We use this to move each joint individually
 
@@ -34,11 +37,11 @@ class gamepad_to_servo(Node):
         # Map each stick axis to a joint
         joint_cmd.joint_names = ['Amanda', 'Sosuke', 'Nathan', 'Henry', 'Indy']
         joint_cmd.velocities = [
-            msg.axes[0] * 0.5,   # left stick left/right → Amanda
-            msg.axes[1] * 0.5,   # left stick up/down  → Sosuke
-            msg.axes[4] * 0.5,   # right stick up/down → Nathan
-            msg.axes[3] * 0.5,   # right stick left/right → Henry
-            msg.axes[2] * 0.5,   # left trigger → Indy
+            msg.axes[0],   # left stick left/right → Amanda
+            msg.axes[1],   # left stick up/down  → Sosuke
+            msg.axes[4],   # right stick up/down → Nathan
+            msg.axes[3],   # right stick left/right → Henry
+            (msg.axes[2] - msg.axes[5])*0.5,   # left trigger → Indy
         ]
 
         self.joint_pub.publish(joint_cmd)
@@ -53,7 +56,7 @@ class gamepad_to_servo(Node):
         twist.twist.linear.x = msg.axes[0] # left-right
         twist.twist.linear.y = msg.axes[1] # up-down
         twist.twist.linear.z = msg.axes[4] #forward-backward
-        twist.twist.angular.z = msg.axes[2] #rotation
+        twist.twist.angular.z = (msg.axes[2] - msg.axes[5])*0.5 #rotation
 
         self.twist_pub.publish(twist)
 

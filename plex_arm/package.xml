@@ -7,6 +7,8 @@
   <maintainer email="nathanc54@shaw.ca">nathan</maintainer>
   <license>TODO: License declaration</license>
 
+  <depend>trac_ik_kinematics_plugin</depend>
+
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>

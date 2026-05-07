@@ -1,3 +1,4 @@
+from ast import For
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
@@ -38,7 +39,7 @@ class gamepad_to_servo(Node):
         joint_cmd.joint_names = ['Amanda', 'Sosuke', 'Nathan', 'Henry', 'Indy']
         joint_cmd.velocities = [
             msg.axes[0],   # left stick left/right → Amanda
-            msg.axes[1],   # left stick up/down  → Sosuke
+            msg.axes[1] * -1,   # left stick up/down  → Sosuke
             msg.axes[4],   # right stick up/down → Nathan
             msg.axes[3],   # right stick left/right → Henry
             (msg.axes[2] - msg.axes[5])*0.5,   # left trigger → Indy
@@ -53,10 +54,11 @@ class gamepad_to_servo(Node):
         twist.header.stamp = self.get_clock().now().to_msg()
         twist.header.frame_id = "base_link"
 
-        twist.twist.linear.x = msg.axes[0] # left-right
-        twist.twist.linear.y = msg.axes[1] # up-down
-        twist.twist.linear.z = msg.axes[4] #forward-backward
-        twist.twist.angular.z = (msg.axes[2] - msg.axes[5])*0.5 #rotation
+        # Using the analog sticks for Cartesian control: left stick for linear, right stick for angular
+        #twist.twist.linear.x = msg.axes[1]  # left-right
+        #twist.twist.linear.y = msg.axes[0]  # up-down
+        #twist.twist.linear.z = msg.axes[0] #forward-backward
+        #twist.twist.angular.z = (msg.axes[2] - msg.axes[5])*0.5 #rotation
 
         self.twist_pub.publish(twist)
 

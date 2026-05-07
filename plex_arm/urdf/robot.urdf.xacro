@@ -11,6 +11,7 @@
     </material> -->
 
     <!-- This file doesn't like the common_properties.xacro fle for some reason-->
+    
     <xacro:include filename='arm.xacro' />
     <xacro:include filename='kipp.ros2_control.xacro'/>
 

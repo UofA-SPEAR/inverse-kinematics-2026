@@ -3,7 +3,7 @@
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
 
     <!-- Import kipp urdf file -->
-    <xacro:include filename="$(find plex_arm)/urdf/robot.urdf.xacro" />
+    <xacro:include filename="$(find plex_arm)/urdf/arm.xacro" />
 
     <!-- Import control_xacro -->
     <xacro:include filename="kipp.ros2_control.xacro" />

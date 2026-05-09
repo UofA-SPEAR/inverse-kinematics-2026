@@ -6,8 +6,10 @@
   <maintainer email="levicokonkwo@gmail.com">levi</maintainer>
   <license>Apache-2.0</license>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>trac_ik_kinematics_plugin</depend>
+
+  <buildtool_depend>ament_python</buildtool_depend>
   <export>
-    <build_type>ament_cmake</build_type>
+    <build_type>ament_python</build_type>
   </export>
 </package>

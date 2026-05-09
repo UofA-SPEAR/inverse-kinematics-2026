@@ -13,6 +13,11 @@ from launch.actions import ExecuteProcess
 
 def generate_launch_description():
 
+    ros2_controllers_path = os.path.join(
+        get_package_share_directory("plex_arm"),
+        "config", "ros2_controllers.yaml"
+    )
+
     moveit_config = (
         MoveItConfigsBuilder("kipp", package_name="plex_arm")
         .robot_description_kinematics()
@@ -26,6 +31,7 @@ def generate_launch_description():
 
     with open(servo_params_path, 'r') as f:
         servo_yaml = yaml.safe_load(f)
+
     servo_params = servo_yaml['servo_node']['ros__parameters']
 
     robot_state_publisher = Node(
@@ -41,10 +47,7 @@ def generate_launch_description():
         output="screen",
         parameters=[
             moveit_config.robot_description,
-            os.path.join(
-                get_package_share_directory("plex_arm"),
-                "config", "ros2_controllers.yaml"
-            ),
+            ros2_controllers_path
         ],
     )
 

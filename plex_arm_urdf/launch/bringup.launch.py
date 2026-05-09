@@ -140,7 +140,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         robot_state_publisher,
-        joint_state_publisher_gui,
+        # joint_state_publisher_gui,
         rviz_node,
         ros2_control_node,
         joint_state_broadcaster_spawner,

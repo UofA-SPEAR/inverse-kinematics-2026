@@ -58,6 +58,8 @@ class gamepad_to_servo(Node):
         # Using the analog sticks for Cartesian control: left stick for linear, right stick for angular
         twist.twist.linear.x = msg.axes[1]  # forward-backward
         twist.twist.linear.y = msg.axes[0]  # left-right
+        twist.twist.linear.z = msg.axes[2]  # up-down
+    
         #twist.twist.linear.z = msg.axes[0] #forward-backward
         #twist.twist.angular.z = (msg.axes[2] - msg.axes[5])*0.5 #rotation
 
@@ -66,3 +68,4 @@ class gamepad_to_servo(Node):
 def main():
     rclpy.init()
     rclpy.spin(gamepad_to_servo())
+

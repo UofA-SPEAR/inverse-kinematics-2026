@@ -12,6 +12,13 @@ import os
 
 def generate_launch_description():
 
+    # Path to your ZeroErr EtherCAT configuration file
+    ethercat_config = os.path.join(
+        get_package_share_directory('plex_arm_urdf'),
+        'config',
+        'zeroerr_drive_config.yaml'
+    )
+    
     rviz_config = os.path.join(
         get_package_share_directory("plex_arm_urdf"),
         'config', 
@@ -138,6 +145,17 @@ def generate_launch_description():
         ]
     )
 
+    # Hardware Node definition
+    HW_control_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[
+            moveit_config.robot_description,
+            ethercat_config             
+        ],
+        output="screen",
+    )
+
     return LaunchDescription([
         robot_state_publisher,
         # joint_state_publisher_gui,
@@ -149,5 +167,6 @@ def generate_launch_description():
         gamepad_node,
         servo_node,
         move_group,
-        start_servo
+        start_servo,
+        HW_control_node
     ])

@@ -1,0 +1,32 @@
+While the software architecture aligns perfectly, physical EtherCAT networks have structural requirements that simulations do not:
+
+Real-Time Linux Kernel (PREEMPT_RT): 
+Your computer running ROS 2 must have a real-time patched Linux kernel. Without it, the master PC cannot maintain a strict 1ms synchronous loop, causing the ZeroErr actuators to instantly trigger watchdogs and drop offline due to timing jitter.
+
+Daisy-Chain Order: 
+The parameter <param name="position"> in your URDF must match the absolute physical sequence of the Ethernet cables. The port leaving the computer goes to Slave 0, its output goes to Slave 1, and so on.
+
+Encoder Scaling Differences: 
+In your simulation, MoveIt outputs pure radians. Physical industrial drives use encoder counts (pulses). The ethercat_generic_plugins/EcCiA402Drive plugin contains a parameter block for scale factoring. You must input your ZeroErr gear ratios and encoder resolution counts there so that 1.0 radian in MoveIt maps correctly to the correct number of encoder ticks in the drive hardware register (0x607A).
+
+<ros2_control name="ZeroErrArmHardwareInterface" type="system">
+  <hardware>
+    <plugin>ethercat_driver/EthercatDriver</plugin>
+    <param name="master_id">0</param>
+    <param name="control_frequency">1000.0</param>
+  </hardware>
+
+  <!-- BASE/SHOULDER JOINTS: 100:1 Gear Reduction (Scale: 8344416) -->
+  <joint name="joint1">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+    <ec_module name="joint1_actuator">
+      <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+      <param name="alias">0</param>
+      <param name="position">0</param>
+      <param name="mode_of_operation">8</param>
+      <!-- Math: (524288 * 100) / (2 * pi) -->
+      <param name="factor">8344416</param>   <!-- <-------------Gear ratio math goes here -->
+    </ec_module>
+  </joint>

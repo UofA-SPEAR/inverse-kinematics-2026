@@ -54,9 +54,12 @@ class gamepad_to_servo(Node):
         twist.header.stamp = self.get_clock().now().to_msg()
         twist.header.frame_id = "base_link"
 
+        #twist.linear.x = msg.axes[0] # forward-backward mapped to left stick
+        #twist.linear.y = msg.axes[1] # left-right mapped to left stick
+
         # Using the analog sticks for Cartesian control: left stick for linear, right stick for angular
-        #twist.twist.linear.x = msg.axes[1]  # left-right
-        #twist.twist.linear.y = msg.axes[0]  # up-down
+        twist.twist.linear.x = msg.axes[1] *-1  # forward-backward mapped to left stick
+        twist.twist.linear.y = msg.axes[0] *-1  # left-right mapped to left stick
         #twist.twist.linear.z = msg.axes[0] #forward-backward
         #twist.twist.angular.z = (msg.axes[2] - msg.axes[5])*0.5 #rotation
 

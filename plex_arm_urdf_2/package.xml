@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>plex_arm_urdf</name>
+  <name>plex_arm_urdf_2</name>
   <version>0.0.1</version>
   <description>URDF for plex arm</description>
   <maintainer email="levicokonkwo@gmail.com">levi</maintainer>
   <license>Apache-2.0</license>
 
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
   <depend>trac_ik_kinematics_plugin</depend>
 
-  <exec_depend>ethercat_driver</exec_depend>
-  <exec_depend>ethercat_interface</exec_depend>
-  <exec_depend>ethercat_generic_cia402_drive<</exec_depend>
+  <exec_depend> ether </exec_depend>
 
   <buildtool_depend>ament_python</buildtool_depend>
   <export>

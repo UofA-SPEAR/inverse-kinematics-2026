@@ -33,6 +33,7 @@ setup(
     entry_points={
         'console_scripts': [
             'gamepad_to_servo = plex_arm_urdf_2.gamepad_to_servo:main',
+            'keyboard_to_servo = plex_arm_urdf_2.keyboard_to_servo:main',
         ],
     },
 )

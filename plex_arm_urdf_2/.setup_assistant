@@ -1,0 +1,27 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: plex_arm_urdf_2
+    relative_path: urdf/plex_arm_urdf_2.urdf.xacro
+  srdf:
+    relative_path: config/plex_arm_urdf_2.srdf
+  package_settings:
+    author_name: levi
+    author_email: levicokonkwo@gmail.com
+    generated_timestamp: 1781741551
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity
